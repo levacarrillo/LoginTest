@@ -10,7 +10,7 @@ namespace LoginTest
 {
     public partial class login : System.Web.UI.Page
     {
-        private string labelText = "Alfredo";
+        private string labelText = "Write your first name as User";
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -22,22 +22,20 @@ namespace LoginTest
             
             DataView dv = (DataView)SqlDataSource1.Select(DataSourceSelectArguments.Empty);
             
-            if(dv !=null)
+            if(dv !=null && dv.Count>0)
             {
-                string name = (string)dv.Table.Rows[0][1];
-                string lastName = (string)dv.Table.Rows[0][3];
-                int phone = (int)dv.Table.Rows[0][2];
-                 
-                userID.Text = "well";
-                Label1.Text = "Datos: " + " " + name + " " + lastName + " " +phone.ToString();
+                string firstName = (string)dv.Table.Rows[0][1];
+                string lastName = (string)dv.Table.Rows[0][2];
+                int age = (int)dv.Table.Rows[0][3];
+                int phone = (int)dv.Table.Rows[0][4];
+                Label1.Text = "Acceso correcto, datos de usuario: " + firstName + " " + lastName + ", edad: " + age + ", teléfono: " + phone;
             }
             else
             {
-                userID.Text = "bad";
-                Label1.Text = "No se pudo realizar la consulta =(";
+                Label1.Text = "Usuario o contraseña inválidos :'(";
             }
 
-
+            userID.Text = "";
         }
     }
 }
